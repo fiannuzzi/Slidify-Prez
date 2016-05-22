@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>(Sun)day distance</title>
+	<meta name="description" content="(Sun)day distance">
+	<meta name="author" content="Francesca Iannuzzi">
+	<meta name="generator" content="slidify" />
+	
+	<!-- LOAD STYLE SHEETS -->
+	<link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/html5slides/default/styles.css">
+	<link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/css/tomorrow.css" />  <link rel="stylesheet" href = "assets/css/ribbons.css">
+  
+</head>
+<body style='display: none'>
+	<section class='slides layout-regular template-regular'>
+     <article class="" id="slide-1" style="background:;">
+  <h3>The app</h3>
+  <p><strong>(Sun)day distance</strong> gives the number of days and sundays between today and a custom input date.</p>
+
+<p>The user selects the desired date (past or future) and the app does the rest.</p>
+
+<p><em>That&#39;s how I found out I have been living about 12000 days and 1700 Sundays</em></p>
+
+</article>
+
+<article class="class" id="id" style="background:;">
+  <h3>The code: part 1</h3>
+  <p>This function from server.R computes the absolute value of the difference between today and the input date:</p>
+
+<pre><code class="r">day_distance &lt;- function(date) {
+  new_date &lt;- as.Date(date, format=&quot;%Y-%m-%d&quot;)
+  today &lt;- Sys.Date()
+  return(abs(new_date-today))
+}
+</code></pre>
+
+<p>Example:</p>
+
+<pre><code class="r">day_distance(&quot;2015-12-31&quot;)
+</code></pre>
+
+<pre><code>## Time difference of 143 days
+</code></pre>
+
+</article>
+
+<article class="" id="slide-3" style="background:;">
+  <h3>The code: part 2</h3>
+  <p>This function from server.R computes how many Sundays there are between today and the input date (only the relevant lines of codes are shown):</p>
+
+<pre><code class="r">sundays &lt;- function(date) {
+  #...
+  days_seq &lt;- seq(today, new_date, by=&quot;days&quot;)
+  weekdays_seq &lt;- weekdays(days_seq)
+  sundays &lt;- sum(weekdays_seq == &quot;Sunday&quot;)
+  #...  
+}
+</code></pre>
+
+<p>Example:</p>
+
+<pre><code class="r">sundays(&quot;2015-12-31&quot;)
+</code></pre>
+
+<pre><code>## [1] 21
+</code></pre>
+
+</article>
+
+<article class="" id="slide-4" style="background:;">
+  <h3>Conclusions</h3>
+  <p>That&#39;s all for my first Shiny App. </p>
+
+<p>You can play with it <a href="https://fiannuzzi.shinyapps.io/Shiny_App/">here</a></p>
+
+<p><em>P.S. If someone knows how to embed a Shiny app in Slidify please let me know! I miserably failed at that...</em></p>
+
+<style>
+em {
+  font-style: italic
+}
+</style>
+
+<style>
+strong {
+  font-weight: bold;
+}
+</style>
+
+</article>
+
+  </section>
+</body>
+  <!-- LOAD JAVASCRIPTS  -->
+	<script src='http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/html5slides/default/slides.js'></script>
+	<script src="shared/shiny.js" type="text/javascript"></script>
+	<script src="shared/slider/js/jquery.slider.min.js"></script>
+	<script src="shared/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="shared/slider/css/jquery.slider.min.css"></link>
+	
+	<!-- LOAD HIGHLIGHTER JS FILES -->
+	<script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+	 
+	</html>
